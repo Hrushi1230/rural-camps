@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BookingForm } from "@/components/booking/BookingForm";
-import { media } from "@/data/site";
+import { planTripBackground } from "@/data/site";
 export const Route = createFileRoute("/plan-trip")({
   head: () => ({
     meta: [
@@ -27,7 +27,7 @@ function Page() {
     <main className="plan-page">
       <div className="plan-visual">
         <img
-          src={media.hero}
+          src={planTripBackground}
           alt="Temporary editorial visual of an outdoor camp in Odisha"
           width="1600"
           height="1000"

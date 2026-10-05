@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { koraputJourneyStops, media } from "@/data/site";
+import { koraputJourneyMedia, koraputJourneyStops } from "@/data/site";
 import { KoraputJourneyMotion } from "@/components/motion/KoraputJourneyMotion";
 import { useRef } from "react";
 
@@ -38,7 +38,7 @@ export function KoraputJourneySection() {
         ))}
       </div>
       <figure className="rc-journey-landscape">
-        <img src={media.koraput} alt="Temporary editorial visual inspired by a road through the Koraput highlands" loading="lazy" width="1600" height="1000" />
+        <img src={koraputJourneyMedia.hero} alt="Temporary editorial visual inspired by a road through the Koraput highlands" loading="lazy" width="1600" height="1000" />
       </figure>
     </section>
   );

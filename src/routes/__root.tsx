@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
+import { BookingProvider } from "@/components/booking/BookingContext";
 
 function NotFoundComponent() {
   return (
@@ -80,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
+      { name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" },
       { title: "Rural Camps Odisha" },
       { name: "description", content: "Camp, stay and explore Odisha differently." },
       { name: "author", content: "Rural Camps" },
@@ -126,10 +127,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <SmoothScroll />
-      <SiteHeader />
-      <Outlet />
-      <SiteFooter />
+      <BookingProvider>
+        <SmoothScroll />
+        <SiteHeader />
+        <Outlet />
+        <SiteFooter />
+      </BookingProvider>
     </QueryClientProvider>
   );
 }

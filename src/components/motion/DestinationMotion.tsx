@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from "react";
-import { loadGsap } from "@/lib/gsap";
+import { DESKTOP_QUERY, SCRUB_DESKTOP, loadGsap } from "@/lib/gsap";
 
 export function DestinationMotion({ rootRef }: { rootRef: RefObject<HTMLElement | null> }) {
   useEffect(() => {
@@ -12,7 +12,7 @@ export function DestinationMotion({ rootRef }: { rootRef: RefObject<HTMLElement 
       if (disposed) return;
       const ctx = gsap.context(() => {
         const mm = gsap.matchMedia();
-        mm.add("(min-width: 1100px)", () => {
+        mm.add(DESKTOP_QUERY, () => {
           const desktop = root.querySelector<HTMLElement>(".rc-destination-desktop");
           const stage = root.querySelector<HTMLElement>(".rc-destination-stage");
           if (!desktop || !stage) return;
@@ -21,6 +21,8 @@ export function DestinationMotion({ rootRef }: { rootRef: RefObject<HTMLElement 
           gsap.set(".rc-map-label-coast", { autoAlpha: 1 });
           gsap.set(".rc-map-label-hills", { autoAlpha: 0 });
           gsap.set(".rc-place-hills", { xPercent: 44 });
+          gsap.set(".rc-place-hills img", { scale: 1.1, transformOrigin: "30% 50%" });
+          gsap.set(".rc-place-coast img", { scale: 1, transformOrigin: "50% 50%" });
 
           const tl = gsap.timeline({
             scrollTrigger: {
@@ -28,20 +30,28 @@ export function DestinationMotion({ rootRef }: { rootRef: RefObject<HTMLElement 
               start: "top top",
               end: "+=140%",
               pin: stage,
-              scrub: 0.8,
+              scrub: SCRUB_DESKTOP,
               anticipatePin: 1,
+              fastScrollEnd: true,
               invalidateOnRefresh: true,
             },
           });
 
-          tl.to(".rc-place-hills", { xPercent: -12, ease: "none", duration: 1 }, 0)
-            .to(".rc-terrain-edge", { x: () => window.innerWidth * -0.45, ease: "none", duration: 1 }, 0)
-            .to(".rc-journey-line", { x: () => window.innerWidth * -0.45, ease: "none", duration: 1 }, 0)
-            .to(".rc-coast-copy", { autoAlpha: 0, x: -50, ease: "none", duration: 0.2 }, 0.28)
-            .fromTo(".rc-journey-line path", { strokeDashoffset: 1200 }, { strokeDashoffset: 0, ease: "none", duration: 0.65 }, 0.16)
-            .fromTo(".rc-hills-copy", { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, ease: "none", duration: 0.34 }, 0.5)
-            .to(".rc-map-label-coast", { autoAlpha: 0, duration: 0.2 }, 0.32)
-            .to(".rc-map-label-hills", { autoAlpha: 1, duration: 0.22 }, 0.58);
+          // The hills panel must land on 0 so it fully covers the stage (no dark gap at the right).
+          // Its clip edge sits ~22% in, so the edge/line travel 44% of the viewport to stay glued to it.
+          const WIPE = 0.88;
+          const edgeTravel = () => window.innerWidth * -0.44;
+          tl.to(".rc-place-hills", { xPercent: 0, ease: "power2.inOut", duration: WIPE }, 0)
+            .to(".rc-terrain-edge", { x: edgeTravel, ease: "power2.inOut", duration: WIPE }, 0)
+            .to(".rc-journey-line", { x: edgeTravel, ease: "power2.inOut", duration: WIPE }, 0)
+            .to(".rc-place-hills img", { scale: 1, ease: "power2.out", duration: WIPE }, 0)
+            .to(".rc-place-coast img", { scale: 1.08, ease: "none", duration: WIPE }, 0)
+            .to(".rc-coast-copy", { autoAlpha: 0, x: -50, ease: "power2.in", duration: 0.24 }, 0.2)
+            .fromTo(".rc-journey-line path", { strokeDashoffset: 1200 }, { strokeDashoffset: 0, ease: "none", duration: 0.65 }, 0.14)
+            .fromTo(".rc-hills-copy", { autoAlpha: 0, x: 50 }, { autoAlpha: 1, x: 0, ease: "power3.out", duration: 0.32 }, 0.56)
+            .to(".rc-map-label-coast", { autoAlpha: 0, duration: 0.2 }, 0.3)
+            .to(".rc-map-label-hills", { autoAlpha: 1, duration: 0.2 }, 0.6)
+            .to({}, { duration: 1 - WIPE }, WIPE);
 
           return () => {
             tl.scrollTrigger?.kill();

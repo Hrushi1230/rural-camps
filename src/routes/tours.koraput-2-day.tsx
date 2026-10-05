@@ -1,99 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PageHero } from "@/components/site/PageHero";
-import { IntroBand, NumberedList } from "@/components/site/ContentPage";
-import { EditorialCTA } from "@/components/site/EditorialCTA";
-import { koraputStops, media } from "@/data/site";
+import { KoraputTripPage } from "@/components/trip/KoraputTripPage";
+
 export const Route = createFileRoute("/tours/koraput-2-day")({
   head: () => ({
     meta: [
-      { title: "Koraput 2-Day Tour | Rural Camps Odisha" },
+      { title: "Koraput 2-Day Journey | Rural Camps Odisha" },
       {
         name: "description",
         content:
-          "Plan a two-day Koraput journey through Talamali, Deomali, Duduma, Gupteswar and Kolab.",
+          "A two-day Koraput journey through Talamali, Deomali, Duduma, Gupteswar and Kolab. Enquire and confirm the plan on WhatsApp.",
       },
       { property: "og:title", content: "Koraput 2-Day Journey | Rural Camps" },
       {
         property: "og:description",
-        content: "A curated two-day road through Koraput's highlands and waterfalls.",
+        content: "One road. Five moments. A curated two-day road through Koraput's highlands and waterfalls.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/tours/koraput-2-day" }],
   }),
-  component: Page,
+  component: KoraputTripPage,
 });
-function Page() {
-  return (
-    <main>
-      <PageHero
-        eyebrow="KORAPUT · 2 DAYS"
-        title={
-          <>
-            THE ROAD
-            <br />
-            <em>GOES HIGHER.</em>
-          </>
-        }
-        copy="A compact route through highlands, waterfalls and sacred landscapes. Final timings are confirmed for your date."
-        image={media.koraput}
-      />
-      <IntroBand
-        eyebrow="TRIP OVERVIEW"
-        title={
-          <>
-            FIVE STOPS.
-            <br />
-            <em>TWO DAYS OUT.</em>
-          </>
-        }
-        copy="The published route provides the shape of the journey. Current transport, meals, stays, inclusions and pricing require confirmation."
-      />
-      <NumberedList
-        eyebrow="DAY 01"
-        title="INTO THE HIGHLANDS"
-        items={[
-          {
-            title: "Talamali",
-            copy: "Begin in the Koraput landscape and settle into the pace of the road.",
-          },
-          {
-            title: "Deomali",
-            copy: "Move toward Odisha's highest peak, subject to route and weather conditions.",
-          },
-        ]}
-      />
-      <section className="route-banner">
-        {koraputStops.map((s, i) => (
-          <span key={s}>
-            <small>0{i + 1}</small>
-            {s}
-          </span>
-        ))}
-      </section>
-      <NumberedList
-        eyebrow="DAY 02"
-        title="WATER, FOREST, ROAD"
-        items={[
-          { title: "Duduma", copy: "Continue toward the waterfall region." },
-          { title: "Gupteswar", copy: "Follow the route into a sacred forest landscape." },
-          { title: "Kolab", copy: "Close the journey beside the reservoir region." },
-        ]}
-      />
-      <section className="info-note">
-        <p className="eyebrow">TRAVEL NOTES</p>
-        <h2>
-          CONFIRM BEFORE
-          <br />
-          <em>YOU SET OUT.</em>
-        </h2>
-        <p>
-          Road conditions, weather, pickup, accommodation, inclusions and exclusions can change.
-          Rural Camps will share the current plan before booking.
-        </p>
-      </section>
-      <EditorialCTA title="ENQUIRE ABOUT THIS JOURNEY." />
-    </main>
-  );
-}

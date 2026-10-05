@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from "react";
-import { loadGsap } from "@/lib/gsap";
+import { DESKTOP_QUERY, SCRUB_DESKTOP, loadGsap } from "@/lib/gsap";
 
 export function RentCampMotion({ rootRef }: { rootRef: RefObject<HTMLElement | null> }) {
   useEffect(() => {
@@ -13,7 +13,7 @@ export function RentCampMotion({ rootRef }: { rootRef: RefObject<HTMLElement | n
         if (disposed) return;
         const ctx = gsap.context(() => {
           const mm = gsap.matchMedia();
-          mm.add("(min-width: 1100px)", () => {
+          mm.add(DESKTOP_QUERY, () => {
             const desktop = root.querySelector<HTMLElement>(".rc-rent-desktop");
             const stage = desktop?.querySelector<HTMLElement>(".rc-rent-stage");
             if (!desktop || !stage) return;
@@ -31,13 +31,14 @@ export function RentCampMotion({ rootRef }: { rootRef: RefObject<HTMLElement | n
                 start: "top top",
                 end: "+=155%",
                 pin: stage,
-                scrub: 0.8,
+                scrub: SCRUB_DESKTOP,
                 anticipatePin: 1,
+                fastScrollEnd: true,
                 invalidateOnRefresh: true,
               },
             });
             timeline
-              .to(frames, { scale: 1.035, ease: "none", duration: 1 }, 0)
+              .to(frames, { scale: 1.015, ease: "none", duration: 1 }, 0)
               .fromTo(".rc-rent-ready-glow", { opacity: 0 }, { opacity: 1, ease: "none", duration: 0.35 }, 0.62);
             steps.forEach((step, index) => {
               const position = index / Math.max(steps.length - 1, 1);

@@ -18,7 +18,7 @@ export function RealRuralCampsMotion({ rootRef }: { rootRef: RefObject<HTMLEleme
             duration: 0.8,
             stagger: 0.09,
             ease: "power3.out",
-            scrollTrigger: { trigger: root, start: "top 76%" },
+            scrollTrigger: { trigger: root, start: "top 76%", once: true },
           });
           gsap.from(".rc-moment", {
             y: 28,
@@ -27,7 +27,7 @@ export function RealRuralCampsMotion({ rootRef }: { rootRef: RefObject<HTMLEleme
             duration: 0.85,
             stagger: 0.1,
             ease: "power3.out",
-            scrollTrigger: { trigger: ".rc-moment-collage", start: "top 76%" },
+            scrollTrigger: { trigger: ".rc-moment-collage", start: "top 76%", once: true },
           });
         }, root);
         cleanup = () => ctx.revert();

@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { useRef } from "react";
 import { media } from "@/data/site";
 import { HeroMotion } from "@/components/motion/HeroMotion";
+import { HeroJourney } from "@/components/home/HeroJourney";
+import { HeroBanner } from "@/components/home/HeroBanner";
 
 export function HeroSection() {
   const rootRef = useRef<HTMLElement>(null);
@@ -35,9 +37,8 @@ export function HeroSection() {
       <div className="rc-scroll-cue" aria-hidden>
         <span>Scroll</span><ArrowDown />
       </div>
-      <div className="rc-destination-index" aria-label="Featured destination one of four">
-        <span>Ramachandi</span><i /><small>01 / 04</small>
-      </div>
+      <HeroBanner />
+      <HeroJourney />
       <Link className="sr-only" to="/plan-trip">Plan a trip <ArrowUpRight /></Link>
     </section>
   );

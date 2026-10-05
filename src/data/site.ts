@@ -19,12 +19,48 @@ export interface Destination {
   bookingEnabled: boolean;
 }
 
+export const rentCampFrames = [
+  "/images/home/rent-a-camp/01-empty.webp",
+  "/images/home/rent-a-camp/02-arrival.webp",
+  "/images/home/rent-a-camp/03-tent.webp",
+  "/images/home/rent-a-camp/04-setup.webp",
+  "/images/home/rent-a-camp/05-lights.webp",
+  "/images/home/rent-a-camp/06-ready.webp",
+] as const;
+
+export const koraputJourneyMedia = {
+  hero: "/images/home/koraput-journey/hero.webp",
+  talamali: "/images/home/koraput-journey/talamali.webp",
+  deomali: "/images/home/koraput-journey/deomali.webp",
+  duduma: "/images/home/koraput-journey/duduma.webp",
+  gupteswar: "/images/home/koraput-journey/gupteswar.webp",
+  kolab: "/images/home/koraput-journey/kolab.webp",
+} as const;
+
+export const realRuralCampsMedia = {
+  ramachandiNight: "/images/home/real-rural-camps/ramachandi-night.webp",
+  coastalCamp: "/images/home/real-rural-camps/coastal-camp.webp",
+  koraputRoad: "/images/home/real-rural-camps/koraput-road.webp",
+  nightCamp: "/images/home/real-rural-camps/night-camp.webp",
+  ruralStay: "/images/home/real-rural-camps/rural-stay.webp",
+  morningDetail: "/images/home/real-rural-camps/morning-detail.webp",
+} as const;
+
+export const planTripBackground = "/images/home/booking/plan-trip-bg.webp";
+
+export const brandMedia = {
+  primary: "/brand/rural-camps-primary.svg",
+  light: "/brand/rural-camps-light.svg",
+  mark: "/brand/rural-camps-mark.svg",
+} as const;
+
 export const media = {
   hero: heroImage,
   ramachandi: ramachandiImage,
   koraput: koraputImage,
-  rentCamp: rentCampImage,
-  ruralStay: ruralStayImage,
+  rentCamp: rentCampFrames[5],
+  ruralStay: realRuralCampsMedia.ruralStay,
+  planTrip: planTripBackground,
 } as const;
 
 export const destinations: Destination[] = [
@@ -65,7 +101,7 @@ export const experiences = [
     name: "Rent A Camp",
     description: "Take the outdoors with you. Flexible setups for your own adventure.",
     href: "/rent-a-camp",
-    image: rentCampImage,
+    image: rentCampFrames[5],
   },
   {
     slug: "tour",
@@ -79,7 +115,7 @@ export const experiences = [
     name: "Rural Stay",
     description: "Stay closer to local life and experience rural Odisha.",
     href: "/rural-stay",
-    image: ruralStayImage,
+    image: realRuralCampsMedia.ruralStay,
   },
 ] as const;
 
@@ -95,19 +131,19 @@ export const rentCampSteps = [
 ] as const;
 
 export const koraputJourneyStops = [
-  { name: "Talamali", description: "Rolling hills with panoramic views.", image: koraputImage },
-  { name: "Deomali", description: "Odisha’s highest peak and endless horizons.", image: koraputImage },
-  { name: "Duduma", description: "Majestic waterfalls in a lush valley.", image: koraputImage },
-  { name: "Gupteswar", description: "Ancient limestone caves and natural wonders.", image: rentCampImage },
-  { name: "Kolab", description: "Serene backwaters and tribal villages.", image: koraputImage },
+  { name: "Talamali", description: "Rolling hills with panoramic views.", image: koraputJourneyMedia.talamali },
+  { name: "Deomali", description: "Odisha’s highest peak and endless horizons.", image: koraputJourneyMedia.deomali },
+  { name: "Duduma", description: "Majestic waterfalls in a lush valley.", image: koraputJourneyMedia.duduma },
+  { name: "Gupteswar", description: "Ancient limestone caves and natural wonders.", image: koraputJourneyMedia.gupteswar },
+  { name: "Kolab", description: "Serene backwaters and tribal villages.", image: koraputJourneyMedia.kolab },
 ] as const;
 
 export const realCampMoments = [
-  { caption: "Ramachandi · coastal nights", image: ramachandiImage },
-  { caption: "Camp setup · after dark", image: rentCampImage },
-  { caption: "Koraput · roads into the hills", image: koraputImage },
-  { caption: "Clear skies · deeper conversations", image: rentCampImage },
-  { caption: "Rural stay · evening light", image: ruralStayImage },
+  { caption: "Ramachandi · coastal nights", image: realRuralCampsMedia.ramachandiNight },
+  { caption: "Camp setup · after dark", image: realRuralCampsMedia.nightCamp },
+  { caption: "Koraput · roads into the hills", image: realRuralCampsMedia.koraputRoad },
+  { caption: "Clear skies · deeper conversations", image: realRuralCampsMedia.morningDetail },
+  { caption: "Rural stay · evening light", image: realRuralCampsMedia.ruralStay },
 ] as const;
 
 export const tour = {

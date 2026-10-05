@@ -33,9 +33,36 @@ export function createWhatsAppMessage(values: BookingValues) {
   return `Hi Rural Camps,\n\nI'd like to plan a trip.\n\nExperience: ${values.experience}\nDestination / Location: ${values.destination}\nDate: ${values.date}\nGuests: ${values.guests}${pickup}\n\nName: ${values.name}\nPhone: ${values.phone}\n\nAdditional details:\n${extra}\n\nPlease confirm availability and current pricing.`;
 }
 
-export function getWhatsAppUrl(values: BookingValues) {
+function buildWhatsAppUrl(message: string) {
   const rawNumber = import.meta.env["VITE_RURAL_CAMPS_WHATSAPP"] as string | undefined;
   const number = rawNumber?.replace(/\D/g, "");
   if (!number) return null;
-  return `https://wa.me/${number}?text=${encodeURIComponent(createWhatsAppMessage(values))}`;
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+export function getWhatsAppUrl(values: BookingValues) {
+  return buildWhatsAppUrl(createWhatsAppMessage(values));
+}
+
+export function isWhatsAppConfigured() {
+  return buildWhatsAppUrl("") !== null;
+}
+
+/** Lightweight starting point for enquiries made before any trip details are collected. */
+export interface QuickEnquiry {
+  experience?: BookingValues["experience"];
+  destination?: string;
+}
+
+export function createQuickEnquiryMessage(enquiry: QuickEnquiry = {}) {
+  const lines = ["Hi Rural Camps,", "", "I'd like to plan a trip."];
+  if (enquiry.experience || enquiry.destination) lines.push("");
+  if (enquiry.experience) lines.push(`Experience: ${enquiry.experience}`);
+  if (enquiry.destination) lines.push(`Destination / Location: ${enquiry.destination}`);
+  lines.push("", "Please share availability and current pricing.");
+  return lines.join("\n");
+}
+
+export function getQuickEnquiryUrl(enquiry: QuickEnquiry = {}) {
+  return buildWhatsAppUrl(createQuickEnquiryMessage(enquiry));
 }

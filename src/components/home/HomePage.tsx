@@ -5,6 +5,7 @@ import { RentCampSection } from "@/components/home/RentCampSection";
 import { KoraputJourneySection } from "@/components/home/KoraputJourneySection";
 import { RealRuralCampsSection } from "@/components/home/RealRuralCampsSection";
 import { PlanTripSection } from "@/components/home/PlanTripSection";
+import { BookingLayer } from "@/components/booking/BookingLayer";
 
 export function HomePage() {
   return (
@@ -16,6 +17,7 @@ export function HomePage() {
       <KoraputJourneySection />
       <RealRuralCampsSection />
       <PlanTripSection />
+      <BookingLayer />
     </main>
   );
 }
